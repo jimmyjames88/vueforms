@@ -21,12 +21,13 @@
 </template>
 
 <script>
+import Base from '../assets/Base.js';
 import Validation from '../assets/ValidationMixin.js'
 
 export default {
         name: 'Textfield',
 
-        mixins: [ Validation ],
+        mixins: [ Base, Validation ],
 
         props: [ 'field', 'rules' ],
 

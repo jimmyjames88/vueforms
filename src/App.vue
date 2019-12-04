@@ -1,18 +1,21 @@
 <template>
     <div id="app">
         <div class="row">
-            <Textfield v-for="field in form" :field="field" />
+            <Textfield :field="form[0]" />
+			<Checkbox :field="form[2]" />
         </div>
     </div>
 </template>
 
 <script>
 import Textfield from './components/Textfield.vue'
+import Checkbox from './components/Checkbox.vue'
 
 export default {
     name: 'app',
     components: {
-        Textfield
+        Textfield,
+		Checkbox
     },
     data() {
         return {
@@ -76,6 +79,38 @@ export default {
                         },
                         click(){
 
+                        },
+                        change(){},
+                        keypress(){},
+                    },
+
+                    validation: {
+                        front: {
+                            email: true,
+                            max: 10
+                        },
+                        laravel: ''
+                    }
+                },
+
+				// 3
+				{
+                    name: 'FieldName',
+                    id: 'field-id3',
+                    label: 'The label',
+                    help: 'Help yourself nerd',
+                    // required: true,
+
+                    inline: true,
+                    columns: 6,
+
+                    events: {
+                        focus(){},
+                        blur(){
+                            console.log('WEOW!')
+                        },
+                        click(){
+							console.log('Yolo')
                         },
                         change(){},
                         keypress(){},

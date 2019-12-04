@@ -1,37 +1,11 @@
 export default {
     data() {
         return {
-            error: null,
             dataKey: null
         }
     },
 
-    mounted() {
-
-    },
-
-    computed: {
-        columnsClass() {
-            if(this.field.columns)
-                return 'col-' + this.field.columns;
-
-            return 'col-12';
-        }
-    },
-
     methods: {
-
-        callFieldEvent(name) {
-            if (this.field.events && typeof(this.field.events[name]) === 'function')
-                this.field.events[name]();
-        },
-
-        doBlur() {
-            this.value = this.value.trim();
-            this.doValidate();
-            this.callFieldEvent('blur');
-        },
-
         doValidate() {
             if(! this.field.events)
                 return false
@@ -42,7 +16,6 @@ export default {
             } else {
                 this.error = validate
             }
-
         },
 
         validate() {
