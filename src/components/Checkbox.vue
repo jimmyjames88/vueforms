@@ -64,6 +64,7 @@ export default {
 			position: absolute;
 			width: 0;
 			height: 0;
+			visibility: hidden;
 		}
 	}
 

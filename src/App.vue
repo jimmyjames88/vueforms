@@ -1,170 +1,138 @@
 <template>
     <div id="app">
-        <div class="row">
-			<Checkbox :field="form[2]" />
-			<CheckboxGroup :group="form[3]" />
-        </div>
+        <VueForm :formData="form" />
     </div>
 </template>
 
 <script>
+import VueForm from './components/VueForm.vue'
 import Textfield from './components/Textfield.vue'
 import Checkbox from './components/Checkbox.vue'
 import RadioButton from './components/RadioButton.vue'
 import RadioButtonGroup from './components/RadioButtonGroup.vue'
 import CheckboxGroup from './components/CheckboxGroup.vue'
+import Slider from './components/Slider.vue'
 
 export default {
     name: 'app',
     components: {
+        VueForm,
         Textfield,
 		Checkbox,
 		RadioButton,
 		RadioButtonGroup,
-		CheckboxGroup
+		CheckboxGroup,
+        Slider
     },
+
     data() {
         return {
-            form: [
-                // 1
-                {
-                    name: 'FieldName',
-                    id: 'field-id',
-                    label: 'The label',
-                    help: 'Help yourself nerd',
-                    // required: true,
+            form:  {
+                title: '',
+                attributes: {
 
-                    inline: true,
-                    columns: 6,
-
-                    attributes: {
-                        class: 'form-control',
-                        placeholder: 'textfield PH',
-                        type: 'password'
-                    },
-
-                    events: {
-                        focus(){},
-                        blur(){
-                            console.log('WEOW!')
-                        },
-                        click(){
-
-                        },
-                        change(){},
-                        keypress(){},
-                    },
-
-                    validation: {
-                        front: {
-                            email: true,
-                            max: 10
-                        },
-                        laravel: ''
-                    }
                 },
+                fields: [
+                    {
+                        fieldType: Textfield,
+                        field: {
+                            name: 'FieldName',
+                            id: 'field-id',
+                            label: 'The label',
+                            help: 'Help yourself nerd',
+                            // required: true,
 
-                // 2
-                {
-                    name: 'FieldName2',
-                    id: 'field-id2',
-                    label: 'The label',
-                    help: 'Help yourself nerd',
-                    inline: true,
-                    columns: 6,
+                            inline: true,
+                            columns: 6,
 
-                    attributes: {
-                        class: 'form-control',
-                        placeholder: 'textfield PH'
+                            attributes: {
+                                class: 'form-control',
+                                placeholder: 'textfield PH',
+                                type: 'password'
+                            },
+
+                            events: {
+                                blur(){
+                                    console.log('WEOW!')
+                                }
+                            },
+
+                            validation: {
+                                front: {
+                                    email: true,
+                                    max: 10
+                                },
+                                laravel: ''
+                            }
+                        }
                     },
 
-                    events: {
+                    {
+                        fieldType: Textfield,
+                        field: {
+                            name: 'FieldName2',
+                            id: 'field-id2',
+                            label: 'The label',
+                            help: 'Help yourself biotch',
+                            // required: true,
 
+                            inline: true,
+                            columns: 6,
+
+                            attributes: {
+                                class: 'form-control',
+                                placeholder: 'textfield PH',
+                                type: 'password'
+                            },
+
+                            events: {
+                                focus(){},
+                                blur(){
+                                    console.log('WEOW!')
+                                },
+                                click(){
+
+                                },
+                                change(){},
+                                keypress(){},
+                            },
+
+                            validation: {
+                                front: {
+                                    email: true,
+                                    max: 10
+                                },
+                                laravel: ''
+                            }
+                        }
                     },
 
-                    validation: {
-                        front: {
-                            email: true,
-                            max: 10
-                        },
-                        laravel: ''
+                    {
+                        fieldType: CheckboxGroup,
+                        group: {
+                            inline: false,
+                            help: 'yolo',
+                            columns: 6,
+                            fields: [
+                                {
+                                    label: 'Titties',
+                                    name: 'Checkbox1',
+                                    id: 'cbg1',
+                                    inline: true,
+                                    help: 'swag',
+                                },
+                                {
+                                    label: 'Beer',
+                                    name: 'Checkbox2',
+                                    id: 'cbg2',
+                                    inline: true,
+                                    help: 'sweeegg',
+                                }
+                            ]
+                        }
                     }
-                },
-
-				// 3
-				{
-                    name: 'FieldName',
-                    id: 'field-id3',
-                    label: 'The label',
-                    help: 'Help yourself nerd',
-                    // required: true,
-
-                    inline: true,
-                    columns: 6,
-
-                    events: {
-						checked() {
-							console.log('checked')
-						},
-						unchecked() {
-							console.log('unchecked')
-						}
-                    },
-
-                    validation: {
-                        front: {
-                            email: true,
-                            max: 10
-                        },
-                        laravel: ''
-                    }
-                },
-
-				// RBG 4+5 [3]
-				{
-					label: 'Radio Button Group',
-					help: 'Sup dawg?',
-					columns: 4,
-					//inline: true,
-
-					fields: [
-						{
-		                    name: 'RadioGroup',
-		                    id: 'field-id4',
-		                    label: 'check 1',
-		                    help: 'Help yourself nerd',
-		                    // required: true,
-							inline: true,
-
-							events: {
-								click() {
-									console.log('clicked');
-								},
-
-								checked() {
-									console.log('checked');
-								},
-
-								unchecked() {
-									console.log('unchecked');
-								}
-							}
-		                },
-
-						// 5
-						{
-		                    name: 'RadioGroup',
-		                    id: 'field-id5',
-		                    label: 'check 2',
-		                    help: 'Help yourself nerd',
-		                    // required: true,
- 							inline: true,
-		                }
-					]
-				}
-				// 4
-
-            ]
+                ]
+            }
         }
     }
 }

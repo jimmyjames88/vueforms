@@ -68,7 +68,6 @@ export default {
 			left: 1px;
 		}
 
-
 		.switch {
 			border-radius: 50%;
 			background-color: #FFF;
