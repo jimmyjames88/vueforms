@@ -10,7 +10,7 @@
                 :id="field.id"
                 v-bind="field.attributes"
                 @keyup="doValidate"
-                @blur="doBlur"
+                @blur="baseBlur"
                 v-model="value"/>
                 <i class="fa fa-check" v-show="!error && value"></i>
             </div>
@@ -74,13 +74,6 @@ export default {
         }
     }
 
-    label {
-        display: block;
-        font-size: 0.75rem;
-        font-weight: bold;
-        color: #777;
-    }
-
     .field-wrapper {
         flex-grow: 1;
     }
@@ -108,20 +101,6 @@ export default {
         font-family: Verdana, sans-serif;
         color: #555;
         width: 100%;
-    }
-
-    .help {
-        font-size: 0.625rem;
-        font-style: italic;
-        margin-top: 0.25rem;
-        color: #777;
-
-        &:before {
-            content: '\f05a';
-            font-family: 'FontAwesome';
-            font-style: normal;
-            margin-right: 0.25rem;
-        }
     }
 
     .error {

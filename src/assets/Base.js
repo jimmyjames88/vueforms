@@ -7,10 +7,13 @@ export default {
 
 	computed: {
 		columnsClass() {
-			if(this.field.columns)
+			if(this.field && this.field.columns)
 				return 'col-' + this.field.columns;
+			else if (this.group && this.group.columns)
+				return 'col-' + this.group.columns;
 
-			return 'col-12';
+			return null;
+			//return 'col-12';
 		}
 	},
 
@@ -20,15 +23,32 @@ export default {
 				this.field.events[name]();
 		},
 
-		doBlur() {
+		baseBlur() {
 			this.value = this.value.trim();
 			this.doValidate();
 			this.callFieldEvent('blur');
 		},
 
-		doClick() {
+		baseClick() {
 			// do some stuff
 			this.callFieldEvent('click');
+		},
+
+		baseChecked() {
+			this.callFieldEvent('checked');
+		},
+
+		baseUnchecked() {
+			this.callFieldEvent('unchecked');
+		},
+
+		baseChange() {
+			if(this.value)
+				this.baseChecked()
+			else
+				this.baseUnchecked()
+
+			this.callFieldEvent('change');
 		}
 	}
 }

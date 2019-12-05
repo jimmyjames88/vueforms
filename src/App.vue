@@ -1,8 +1,8 @@
 <template>
     <div id="app">
         <div class="row">
-            <Textfield :field="form[0]" />
 			<Checkbox :field="form[2]" />
+			<CheckboxGroup :group="form[3]" />
         </div>
     </div>
 </template>
@@ -10,12 +10,18 @@
 <script>
 import Textfield from './components/Textfield.vue'
 import Checkbox from './components/Checkbox.vue'
+import RadioButton from './components/RadioButton.vue'
+import RadioButtonGroup from './components/RadioButtonGroup.vue'
+import CheckboxGroup from './components/CheckboxGroup.vue'
 
 export default {
     name: 'app',
     components: {
         Textfield,
-		Checkbox
+		Checkbox,
+		RadioButton,
+		RadioButtonGroup,
+		CheckboxGroup
     },
     data() {
         return {
@@ -73,15 +79,7 @@ export default {
                     },
 
                     events: {
-                        focus(){},
-                        blur(){
-                            console.log('WEOW!')
-                        },
-                        click(){
 
-                        },
-                        change(){},
-                        keypress(){},
                     },
 
                     validation: {
@@ -105,15 +103,12 @@ export default {
                     columns: 6,
 
                     events: {
-                        focus(){},
-                        blur(){
-                            console.log('WEOW!')
-                        },
-                        click(){
-							console.log('Yolo')
-                        },
-                        change(){},
-                        keypress(){},
+						checked() {
+							console.log('checked')
+						},
+						unchecked() {
+							console.log('unchecked')
+						}
                     },
 
                     validation: {
@@ -123,7 +118,52 @@ export default {
                         },
                         laravel: ''
                     }
-                }
+                },
+
+				// RBG 4+5 [3]
+				{
+					label: 'Radio Button Group',
+					help: 'Sup dawg?',
+					columns: 4,
+					//inline: true,
+
+					fields: [
+						{
+		                    name: 'RadioGroup',
+		                    id: 'field-id4',
+		                    label: 'check 1',
+		                    help: 'Help yourself nerd',
+		                    // required: true,
+							inline: true,
+
+							events: {
+								click() {
+									console.log('clicked');
+								},
+
+								checked() {
+									console.log('checked');
+								},
+
+								unchecked() {
+									console.log('unchecked');
+								}
+							}
+		                },
+
+						// 5
+						{
+		                    name: 'RadioGroup',
+		                    id: 'field-id5',
+		                    label: 'check 2',
+		                    help: 'Help yourself nerd',
+		                    // required: true,
+ 							inline: true,
+		                }
+					]
+				}
+				// 4
+
             ]
         }
     }
@@ -145,6 +185,27 @@ html {
 .row {
     display: flex;
     flex-wrap: wrap;
+}
+
+label {
+	display: block;
+	font-size: 0.75rem;
+	font-weight: bold;
+	color: #777;
+}
+
+.help {
+	font-size: 0.625rem;
+	font-style: italic;
+	margin-top: 0.25rem;
+	color: #999;
+
+	&:before {
+		content: '\f05a';
+		font-family: 'FontAwesome';
+		font-style: normal;
+		margin-right: 0.25rem;
+	}
 }
 
 @media screen and (min-width: 768px) {

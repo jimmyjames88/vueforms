@@ -1,16 +1,22 @@
 <template>
-	<div class="checkbox" :class="columnsClass">
-		<input
-			type="checkbox"
-			:name="field.name || field.id"
-			:id="field.id"
-			v-bind="field.attributes"
-			v-model="value"/>
-			<label class="checkbox-wrapper" :for="field.id" @click="doClick">
+	<div class="checkbox" :class="[columnsClass, { 'inline': field.inline }]">
+		<div class="checkbox-wrapper">
+			<input
+				type="checkbox"
+				:name="field.name || field.id"
+				:id="field.id"
+				v-bind="field.attributes"
+				v-model="value"
+				@change="doChange"/>
+			<label
+				class="checkbox-toggle-wrapper"
+				:for="field.id">
 				<div class="switch"></div>
 			</label>
 			<label v-if="field.label" :for="field.id">{{ field.label }}</label>
-
+			<div class="error" v-if="error && value">{{ error }}</div>
+		</div>
+        <div class="help" v-if="!error || (!value && field.help)">{{ field.help }}</div>
 	</div>
 </template>
 
@@ -19,14 +25,19 @@ import Base from '../assets/Base.js'
 
 export default {
 	name: 'Checkbox',
-
 	mixins: [ Base ],
-
 	props: [ 'field' ],
 
 	data() {
 		return {
-			value: 0
+			value: false
+		}
+	},
+
+	methods: {
+
+		doChange(e) {
+			this.baseChange(e);
 		}
 	}
 }
@@ -34,36 +45,62 @@ export default {
 
 <style lang="scss">
 .checkbox {
-	display: flex;
-	align-items: center;
 
-	> input[type='checkbox'] {
-		position: absolute;
-		opacity: 0;
+	&.inline,
+	&.inline label:not(.checkbox-toggle-wrapper) {
+		display: flex;
+		align-items: center;
+
+		.help {
+			margin-top: 0;
+			margin-left: 1em;
+		}
 	}
 
 	.checkbox-wrapper {
-		padding: 0.25rem;
+		display: flex;
+
+		> input[type='checkbox'] {
+			position: absolute;
+			width: 0;
+			height: 0;
+		}
+	}
+
+
+	label {
+		cursor: pointer;
+	}
+
+	.checkbox-toggle-wrapper {
 		background-color: #999;
 		width: 3em;
-		height: 1.5em;
 		border-radius: 500px;
 		display: inline-flex;
-		cursor: pointer;
 		margin-right: 0.5rem;
+		transition: all 0.2s ease;
+		height: 1.5em;
+		position: relative;
 
 		.switch {
 			border-radius: 50%;
 			background-color: #FFF;
 			width: 1em;
 			height: 1em;
+			transition: all 0.2s ease;
+			margin: 0.25em;
+			position: absolute;
+			left: 0;
 		}
 	}
 
-	> input[type='checkbox']:checked {
-		+ .checkbox-wrapper {
+	.checkbox-wrapper > input[type='checkbox']:checked {
+		+ .checkbox-toggle-wrapper {
 			background-color: #89ce89;
-			justify-content: flex-end;
+
+			.switch {
+				left: 1.5em
+			}
 		}
 	}
 
