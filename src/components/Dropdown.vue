@@ -4,16 +4,16 @@
         <div class="dropdown-wrapper">
             <select v-model="value" v-bind="field.attributes">
                 <option v-if="field.attributes.placeholder">{{ field.attributes.placeholder }}</option>
-                <option v-for="(v, key) in field.options" :key="key" value="key">{{ v }}</option>
+                <option v-for="option in field.options" :key="option.value" value="option.value">{{ option.label }}</option>
             </select>
-            <div class="select-menu" @click="toggleDropdown">
-                <span>{{ field.options[value] }}</span>
+            <div class="select-menu" @click="toggleDropdown" @keydown="keySelection" tabindex="0" ref="selectOverlay">
+                <span>{{ value }}</span>
                 <i class="fa fa-times dont-toggle" v-show="value" @click="makeSelection(null)"></i>
                 <i class="fa fa-caret-down"></i>
             </div>
             <div class="dropdown-menu" :class="{ 'open' : dropdownOpen }">
-                <div v-for="(v, key) in field.options" :key="key" :data-value="key" @click="makeSelection(key)">
-                    {{ v }}
+                <div v-for="(option, index) in field.options" :key="option.value" :data-value="option.value" @click="makeSelection(index)">
+                    {{ option.label }}
                 </div>
             </div>
         </div>
@@ -31,8 +31,17 @@ export default {
 
     data() {
         return {
-            value: null,
+            indexValue: null,
             dropdownOpen: false,
+        }
+    },
+
+    computed: {
+        value() {
+            if(this.indexValue !== null)
+                return this.field.options[this.indexValue].label;
+
+            return null;
         }
     },
 
@@ -42,8 +51,29 @@ export default {
             this.dropdownOpen = !this.dropdownOpen;
         },
         makeSelection(index) {
-            this.value = index;
+            this.indexValue = index;
             this.dropdownOpen = false;
+            this.$refs['selectOverlay'].focus();
+        },
+        keySelection(event) {
+            let fieldLength = this.field.options.length;
+
+            if(event.keyCode == 38) {
+                if(this.indexValue === 0)
+                    this.indexValue = null;
+                else if(this.indexValue === null)
+                    this.indexValue = fieldLength - 1;
+                else
+                    this.indexValue--;
+
+            } else if (event.keyCode == 40) {
+                if(this.indexValue === null)
+                    this.indexValue = 0;
+                else if(this.indexValue < fieldLength - 1)
+                    this.indexValue++;
+                else if (this.indexValue === fieldLength - 1)
+                    this.indexValue = null
+            }
         }
     }
 

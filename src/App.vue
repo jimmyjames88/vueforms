@@ -105,12 +105,12 @@ export default {
                             attributes: {
                                 placeholder: 'Select a province that matters'
                             },
-                            options: {
-                                ab: 'Alberta',
-                                bc: 'British Columbia',
-                                sk: 'Saskatchewan',
-                                mb: 'Manitoba'
-                            }
+                            options: [
+                                { value: 'ab', label: 'Alberta'},
+                                { value: 'bc', label: 'British Columbia' },
+                                { value: 'mb', label: 'Manitoba' },
+                                { value: 'sk', label: 'Saskatchewan'}
+                            ]
                         }
                     }
 
