@@ -1,6 +1,7 @@
 <template>
-    <form ref="form">
-
+    <form class="vue-form" v-bind="form.attributes">
+        <h2 class="form-title" v-if="form.title">{{ form.title }}</h2>
+        <div class="row" ref="formFields"></div>
     </form>
 </template>
 
@@ -35,7 +36,7 @@ export default {
                 propsData: formData
             });
             instance.$mount();
-            this.$refs.form.appendChild(instance.$el)
+            this.$refs.formFields.appendChild(instance.$el)
         }
 
     },
@@ -43,5 +44,17 @@ export default {
 </script>
 
 <style lang="scss">
+.vue-form {
+    max-width: 1140px;
+    margin: 1em auto;
+    background-color: #FFF;
+    border: 1px solid #DDD;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.1);
+    padding: 1em;
+
+    .form-title {
+        margin-bottom: 1em;
+    }
+}
 
 </style>

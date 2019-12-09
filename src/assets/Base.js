@@ -25,7 +25,7 @@ export default {
 
 		baseBlur() {
 			this.value = this.value.trim();
-			this.doValidate();
+			this.baseValidate();
 			this.callFieldEvent('blur');
 		},
 

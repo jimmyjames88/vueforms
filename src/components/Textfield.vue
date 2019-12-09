@@ -9,7 +9,7 @@
                 :name="field.name || field.id"
                 :id="field.id"
                 v-bind="field.attributes"
-                @keyup="doValidate"
+                @keyup="baseValidate"
                 @blur="baseBlur"
                 v-model="value"/>
                 <i class="fa fa-check" v-show="!error && value"></i>

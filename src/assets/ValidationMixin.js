@@ -6,9 +6,9 @@ export default {
     },
 
     methods: {
-        doValidate() {
-            if(! this.field.events)
-                return false
+        baseValidate() {
+            // if(! this.field.events)
+            //     return false
 
             let validate = this.validate(this.value);
             if(validate === true){
@@ -19,6 +19,7 @@ export default {
         },
 
         validate() {
+            console.log(this.field.validation)
             for(let key in this.field.validation.front)  {
                 this.dataKey = key;
 

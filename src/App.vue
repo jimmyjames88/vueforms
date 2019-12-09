@@ -12,125 +12,108 @@ import RadioButton from './components/RadioButton.vue'
 import RadioButtonGroup from './components/RadioButtonGroup.vue'
 import CheckboxGroup from './components/CheckboxGroup.vue'
 import Slider from './components/Slider.vue'
+import Dropdown from './components/Dropdown.vue'
 
 export default {
     name: 'app',
     components: {
         VueForm,
+        Dropdown,
         Textfield,
 		Checkbox,
+        CheckboxGroup,
 		RadioButton,
 		RadioButtonGroup,
-		CheckboxGroup,
         Slider
     },
 
     data() {
         return {
             form:  {
-                title: '',
+                title: 'Some form title',
                 attributes: {
-
+                    method: '',
+                    action: '',
+                    enctype: ''
                 },
                 fields: [
                     {
                         fieldType: Textfield,
                         field: {
-                            name: 'FieldName',
-                            id: 'field-id',
-                            label: 'The label',
-                            help: 'Help yourself nerd',
-                            // required: true,
-
-                            inline: true,
+                            label: 'Full name',
+                            name: 'fullname',
+                            help: 'Checkity check yourself before your wreckity wreck yourself',
                             columns: 6,
-
-                            attributes: {
-                                class: 'form-control',
-                                placeholder: 'textfield PH',
-                                type: 'password'
-                            },
-
-                            events: {
-                                blur(){
-                                    console.log('WEOW!')
-                                }
-                            },
+                            inline: true,
 
                             validation: {
                                 front: {
-                                    email: true,
-                                    max: 10
-                                },
-                                laravel: ''
+                                    email: true
+                                }
                             }
                         }
                     },
 
                     {
-                        fieldType: Textfield,
+                        fieldType: Checkbox,
                         field: {
-                            name: 'FieldName2',
-                            id: 'field-id2',
-                            label: 'The label',
-                            help: 'Help yourself biotch',
-                            // required: true,
+                            id: 'cb1',
+                            columns: 3,
+                            label: 'Check me please',
+                            help: 'Check it or don\'t, idgaf'
+                        }
+                    },
 
-                            inline: true,
-                            columns: 6,
-
-                            attributes: {
-                                class: 'form-control',
-                                placeholder: 'textfield PH',
-                                type: 'password'
-                            },
+                    {
+                        fieldType: Checkbox,
+                        field: {
+                            id: 'cb2',
+                            columns: 3,
+                            label: 'Check me as well please',
+                            help: 'Ja booty',
 
                             events: {
-                                focus(){},
-                                blur(){
-                                    console.log('WEOW!')
+                                checked() {
+                                    alert('Ja checked de bootay')
                                 },
-                                click(){
 
-                                },
-                                change(){},
-                                keypress(){},
-                            },
-
-                            validation: {
-                                front: {
-                                    email: true,
-                                    max: 10
-                                },
-                                laravel: ''
+                                unchecked() {
+                                    alert('Nein booty...NEIN')
+                                }
                             }
                         }
                     },
 
                     {
-                        fieldType: CheckboxGroup,
-                        group: {
-                            inline: false,
-                            help: 'yolo',
-                            columns: 6,
-                            fields: [
-                                {
-                                    label: 'Titties',
-                                    name: 'Checkbox1',
-                                    id: 'cbg1',
-                                    inline: true,
-                                    help: 'swag',
-                                },
-                                {
-                                    label: 'Beer',
-                                    name: 'Checkbox2',
-                                    id: 'cbg2',
-                                    inline: true,
-                                    help: 'sweeegg',
-                                }
-                            ]
+                        fieldType: Slider,
+                        field: {
+                            label: 'Satisfaction',
+                            range: [0, 100],
+                            help: 'I can\'t get none',
+                            columns: 4
+                        }
+                    },
+
+                    {
+                        fieldType: Dropdown,
+                        field: {
+                            label: 'The dropdown label',
+                            name: 'somedropdown',
+                            id: 'somedropdown',
+                            help: 'Click then click again stupid',
+                            columns: 4,
+                            attributes: {
+                                placeholder: 'Select a province that matters'
+                            },
+                            options: {
+                                ab: 'Alberta',
+                                bc: 'British Columbia',
+                                sk: 'Saskatchewan',
+                                mb: 'Manitoba'
+                            }
                         }
                     }
+
                 ]
             }
         }
