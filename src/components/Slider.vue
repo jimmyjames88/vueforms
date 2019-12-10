@@ -3,6 +3,7 @@
     <label v-if="field.label">{{ field.label }}</label>
     <div class="slider-wrapper">
         <input
+            tabindex="0"
             :name="field.name"
             :id="field.id || field.name"
             type="range"
@@ -56,7 +57,6 @@ export default {
         width: 100%; /* Full-width */
         height: 1.5em; /* Specified height */
         background: #999; /* Grey background */
-        outline: none; /* Remove outline */
         -webkit-transition: .2s; /* 0.2 seconds transition on hover */
         transition: opacity .2s;
         border-radius: 500px;

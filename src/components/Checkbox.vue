@@ -9,8 +9,10 @@
 				v-model="value"
 				@change="doChange"/>
 			<label
+				tabindex="0"
 				class="checkbox-toggle-wrapper"
-				:for="field.id">
+				:for="field.id"
+				@keypress="keyToggle">
 				<div class="switch"></div>
 			</label>
 			<label v-if="field.label" :for="field.id">{{ field.label }}</label>
@@ -36,8 +38,12 @@ export default {
 
 	methods: {
 
-		doChange(e) {
-			this.baseChange(e);
+		doChange(event) {
+			this.baseChange(vente);
+		},
+		keyToggle(event) {
+			if (event.keyCode === 32)
+				this.value = !this.value;
 		}
 	}
 }
