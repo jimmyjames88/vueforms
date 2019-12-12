@@ -14,6 +14,13 @@ export default {
 
 			return null;
 			//return 'col-12';
+		},
+
+		concealedClass() {
+			if(this.field && this.field.concealed)
+				return 'concealed'
+
+			return null
 		}
 	},
 
@@ -42,6 +49,13 @@ export default {
 			this.callFieldEvent('unchecked');
 		},
 
+		baseOptionSelected(selectedEvent) {
+			selectedEvent();
+		},
+		baseOptionDeselected(deselectedEvent) {
+			deselectedEvent();
+		},
+
 		baseChange() {
 			if(this.value)
 				this.baseChecked()
@@ -49,6 +63,14 @@ export default {
 				this.baseUnchecked()
 
 			this.callFieldEvent('change');
+		},
+
+		baseRevealField(id) {
+			document.getElementById(id).classList.add('show')
+		},
+
+		baseConcealField(id) {
+			document.getElementById(id).classList.remove('show')
 		}
 	}
 }

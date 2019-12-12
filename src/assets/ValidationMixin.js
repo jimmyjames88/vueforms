@@ -19,7 +19,9 @@ export default {
         },
 
         validate() {
-            console.log(this.field.validation)
+            if(! this.field.validation)
+                return false;
+                
             for(let key in this.field.validation.front)  {
                 this.dataKey = key;
 

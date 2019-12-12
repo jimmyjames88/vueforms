@@ -1,5 +1,6 @@
 <template>
 	<div class="radio-button-group" :class="columnsClass">
+		<label v-if="group.label">{{ group.label }}</label>
 		<RadioButton v-for="(field, index) in group.fields" :field="field" />
 	</div>
 </template>

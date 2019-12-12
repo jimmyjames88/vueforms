@@ -1,16 +1,20 @@
 <template>
 	<div class="radio-button" :class="columnsClass">
-		<input
-			type="radio"
-			:name="field.name || field.id"
-			:id="field.id"
-			v-bind="field.attributes"
-			v-model="value"
-			@change="doChange"/>
+		<div>
+			<input
+				type="radio"
+				:name="field.name || field.id"
+				:id="field.id"
+				v-bind="field.attributes"
+				v-model="value"
+				@change="doChange"/>
 			<label class="radio-button-wrapper" :for="field.id">
 				<div class="switch"></div>
 			</label>
 			<label v-if="field.label" :for="field.id">{{ field.label }}</label>
+		</div>
+		<div v-if="field.help" class="help small">{{ field.help }}</div>
+
 	</div>
 </template>
 
@@ -40,10 +44,16 @@ export default {
 
 <style lang="scss">
 .radio-button {
-	display: flex;
-	align-items: center;
+	margin-bottom: 0.75em;
 
-	> input[type='radio'] {
+	> div:first-child {
+		display: flex;
+		align-items: center;
+		margin-bottom: -0.5em;
+	}
+
+
+	input[type='radio'] {
 		position: absolute;
 		width: 0;
 		height: 0;
@@ -77,7 +87,7 @@ export default {
 		}
 	}
 
-	> input[type='radio']:checked {
+	input[type='radio']:checked {
 		+ .radio-button-wrapper {
 			background-color: #89ce89;
 			justify-content: flex-end;

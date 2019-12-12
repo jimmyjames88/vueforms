@@ -1,5 +1,6 @@
 <template>
 	<div class="checkbox-group" :class="[columnsClass, { 'inline' : group.inline }]">
+		<label v-if="group.label">{{ group.label }}</label>
 		<Checkbox v-for="(field, index) in group.fields" :field="field" />
 	</div>
 </template>

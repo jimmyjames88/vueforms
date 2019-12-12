@@ -1,5 +1,5 @@
 <template>
-	<div class="checkbox" :class="[columnsClass, { 'inline': field.inline }]">
+	<div class="checkbox" :class="[columnsClass, concealedClass, { 'inline': field.inline }]" :id="field.id">
 		<div class="checkbox-wrapper">
 			<input
 				type="checkbox"
@@ -18,7 +18,7 @@
 			<label v-if="field.label" :for="field.id">{{ field.label }}</label>
 			<div class="error" v-if="error && value">{{ error }}</div>
 		</div>
-        <div class="help" v-if="!error || (!value && field.help)">{{ field.help }}</div>
+        <div class="help" v-if="(!error && field.help) || (!value && field.help)">{{ field.help }}</div>
 	</div>
 </template>
 

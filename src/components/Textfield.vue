@@ -15,7 +15,7 @@
                 <i class="fa fa-check" v-show="!error && value"></i>
             </div>
             <div class="error" v-if="error && value">{{ error }}</div>
-            <div class="help" v-if="!error || (!value && field.help)">{{ field.help }}</div>
+            <div class="help" v-if="(!error && field.help) || (!value && field.help)">{{ field.help }}</div>
         </div>
     </div>
 </template>

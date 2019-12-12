@@ -1,9 +1,9 @@
 <template>
-    <div class="dropdown" :class="[columnsClass, { 'inline': field.inline }]">
+    <div class="dropdown" :class="[columnsClass, concealedClass, { 'inline': field.inline }]">
         <label v-if="field.label">{{ field.label }}</label>
         <div class="dropdown-wrapper">
             <select v-model="value" v-bind="field.attributes">
-                <option v-if="field.attributes.placeholder">{{ field.attributes.placeholder }}</option>
+                <option v-if="field.attributes && field.attributes.placeholder">{{ field.attributes.placeholder }}</option>
                 <option v-for="option in field.options" :key="option.value" value="option.value">{{ option.label }}</option>
             </select>
             <div class="select-menu" @click="toggleDropdown" @keydown="keySelection" tabindex="0" ref="selectOverlay">
@@ -51,9 +51,24 @@ export default {
             this.dropdownOpen = !this.dropdownOpen;
         },
         makeSelection(index) {
+            if(this.indexValue === index) {
+                this.$refs['selectOverlay'].focus();
+                this.dropdownOpen = false;
+                return false;
+            }
+
+            if(this.indexValue !== null && this.field.options[this.indexValue].events && this.field.options[this.indexValue].events.deselected)
+                this.baseOptionDeselected(this.field.options[this.indexValue].events.deselected);
+
             this.indexValue = index;
             this.dropdownOpen = false;
             this.$refs['selectOverlay'].focus();
+
+            if(index !== null && this.field.options[index].events && this.field.options[index].events.selected)
+                this.baseOptionSelected(this.field.options[index].events.selected);
+
+            if(index !== null && this.field.options[index].reveals)
+                document.getElementById(this.field.options[index].reveals).classList.remove('concealed')
         },
         keySelection(event) {
             let fieldLength = this.field.options.length;
@@ -169,6 +184,11 @@ export default {
 
             &:hover {
                 background-color: #f3f3f3;
+            }
+
+            &:active {
+                background-color: #89ce89;
+                color: #FFF;
             }
         }
     }

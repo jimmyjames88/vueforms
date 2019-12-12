@@ -27,93 +27,146 @@ export default {
         Slider
     },
 
+    methods: {
+        revealField(id) {
+            document.getElementById(id).classList.remove('concealed');
+        }
+    },
+
     data() {
         return {
             form:  {
-                title: 'Some form title',
+                title: 'Contact form',
                 attributes: {
                     method: '',
                     action: '',
                     enctype: ''
                 },
                 fields: [
+                    // full name
                     {
                         fieldType: Textfield,
                         field: {
+                            columns: 12,
                             label: 'Full name',
-                            name: 'fullname',
-                            help: 'Checkity check yourself before your wreckity wreck yourself',
-                            columns: 6,
-                            inline: true,
+                            help: 'ex. John Smith'
+                        }
+                    },
 
+                    // email
+                    {
+                        fieldType: Textfield,
+                        field: {
+                            columns: 12,
+                            label: 'Email address',
+                            help: 'ex. john@somewhere.com',
                             validation: {
                                 front: {
                                     email: true
                                 }
                             }
-                        }
+                        },
+
                     },
 
+                    // phone
                     {
-                        fieldType: Checkbox,
+                        fieldType: Textfield,
                         field: {
-                            id: 'cb1',
-                            columns: 3,
-                            label: 'Check me please',
-                            help: 'Check it or don\'t, idgaf'
-                        }
-                    },
-
-                    {
-                        fieldType: Checkbox,
-                        field: {
-                            id: 'cb2',
-                            columns: 3,
-                            label: 'Check me as well please',
-                            help: 'Ja booty',
-
-                            events: {
-                                checked() {
-                                    alert('Ja checked de bootay')
-                                },
-
-                                unchecked() {
-                                    alert('Nein booty...NEIN')
+                            columns: 12,
+                            label: 'Phone number',
+                            help: 'ex. (403) 555-5555',
+                            validation: {
+                                front: {
+                                    max: 20
                                 }
                             }
                         }
                     },
 
+                    // prefered contact method
                     {
-                        fieldType: Slider,
-                        field: {
-                            label: 'Satisfaction',
-                            range: [0, 100],
-                            help: 'I can\'t get none',
-                            columns: 4
+                        fieldType: RadioButtonGroup,
+                        group: {
+                            label: 'Preferred contact method',
+                            columns: 6,
+                            fields: [
+                                {
+                                    columns: 6,
+                                    id: 'contact_method1',
+                                    name: 'contact_method',
+                                    label: 'Email',
+                                    help: 'You suck!',
+                                    attributes: {
+                                        value: 'email'
+                                    }
+                                },
+                                {
+                                    columns: 6,
+                                    id: 'contact_method2',
+                                    name: 'contact_method',
+                                    label: 'Phone',
+                                    help: 'Make a choice dickhead',
+                                    attributes: {
+                                        value: 'phone'
+                                    }
+
+                                }
+                            ]
+
                         }
                     },
 
+                    // gender
+                    {
+                        fieldType: CheckboxGroup,
+                        group: {
+                            label: 'Gender',
+                            columns: 6,
+                            fields: [
+                                {
+                                    label: 'Male',
+                                    id: 'gender-male',
+                                    name: 'gender',
+                                    value: 'Male',
+                                    help: 'Do you have a hee hee?'
+                                },
+                                {
+                                    label: 'Female',
+                                    id: 'gender-female',
+                                    name: 'gender',
+                                    value: 'Female',
+                                    help: 'Do you have a hoo hoo?'
+                                }
+                            ]
+                        }
+                    },
+
+                    // province
                     {
                         fieldType: Dropdown,
                         field: {
-                            label: 'The dropdown label',
-                            name: 'somedropdown',
-                            id: 'somedropdown',
-                            help: 'Click then click again stupid',
-                            columns: 4,
-                            attributes: {
-                                placeholder: 'Select a province that matters'
-                            },
+                            label: 'Province',
                             options: [
-                                { value: 'ab', label: 'Alberta'},
-                                { value: 'bc', label: 'British Columbia' },
-                                { value: 'mb', label: 'Manitoba' },
-                                { value: 'sk', label: 'Saskatchewan'}
+                                {
+                                    value: 'ab',
+                                    label: 'Alberta',
+                                    reveals: 'HiddenTest'
+                                }
                             ]
                         }
-                    }
+                    },
 
+                    // HiddenTest
+                    {
+                        fieldType: Checkbox,
+                        field: {
+                            concealed: true,
+                            id: 'HiddenTest',
+                            label: 'Country',
+                            help: 'YOLO!'
+                        }
+                    }
                 ]
             }
         }
@@ -133,6 +186,10 @@ html {
     font-family: Verdana, sans-serif;
 }
 
+.concealed {
+    display: none;
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;
@@ -143,6 +200,7 @@ label {
 	font-size: 0.75rem;
 	font-weight: bold;
 	color: #777;
+    margin-bottom: 0.5em;
 }
 
 .help {
